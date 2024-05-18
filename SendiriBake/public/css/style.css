@@ -1,0 +1,235 @@
+
+/*used in template*/
+.sidebar {
+    height: 100%; 
+    width: 280px; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: #FFFFFF; 
+    overflow-x: hidden; 
+    padding-top: 0px;
+    border: #545F71;
+    border-style: none solid none none;
+    
+  }
+
+  .sidebar h1{
+    font-family: Verdana;
+    font-size: 38px;
+    text-align: center;
+    color:#545F71 ;
+    padding-bottom: 20px;
+  }
+  
+  .sidebar a {
+    padding: 8px 8px 8px 16px;
+    text-decoration: none;
+    font-family: Verdana;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+  }
+  
+  .sidebar a:hover {
+    color: #545F71;
+  }
+  
+  .main {
+    margin-left: 300px; 
+    padding: 0px 10px;
+    font-family: Verdana;
+    color:#545F71 ;
+  }
+/*used in template*/
+
+/*home*/
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.card {
+  width: 30%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  font-size: 16px;
+  color: #666;
+}
+
+
+/*home*/
+  
+/*used in managecat, editproduct*/
+  #productImages {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+    gap: 20px; /* Add space between items */
+  }
+  
+  .productItem {
+    width: 250px; /* Set fixed width for each product item */
+    display: flex;
+    flex-direction: column; /* Align children in a column */
+    align-items: center; /* Center items horizontally */
+    text-align: center;
+  }
+  
+  .productItem img {
+    width: 250px; /* Ensure the image takes the full width of its container */
+    height: 250px;
+    object-fit: cover;
+  }
+  
+
+.product-container {
+  display: flex;
+  align-items: center;
+}
+
+.editproduct-image img {
+  width: 100%;
+  object-fit: contain;
+  max-width: 100%; /* Ensure the image does not exceed its container */
+}
+
+.editproduct-image {
+  flex: 0 0 50%; /* Adjust the width of the image container */
+  
+}
+
+.editproduct-details {
+  flex: 0 0 40%; /* Adjust the width of the details container */
+  padding-left: 50px; /* Add padding to create space between image and details */
+}
+
+.productname{
+  font-size: 35px;
+}
+
+.productprice{
+  font-size: 25px;
+}
+ 
+.productdesc{
+  font-family: Verdana;
+  font-size: 15px;
+}
+/*used in managecat and editproduct*/
+
+
+/*used in quota*/
+.edit-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px; /* You can adjust the padding as needed */
+}
+
+.edit-button {
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.editquota {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  margin: auto; /* To center the form horizontally within the main container */
+}
+
+/* Apply styles to the form elements */
+.editquota label {
+  margin-bottom: 8px; /* Adjust spacing between labels and inputs */
+}
+
+.editquota input {
+  padding: 6px; /* Add padding for inputs */
+  margin-bottom: 12px; /* Adjust spacing between inputs */
+}
+
+.date-input {
+  margin-right: 20px; /* Adjust spacing between date inputs */
+  display: flex;
+  justify-content: center;
+}
+
+.date-input label,.date-input input {
+  display: block;
+}
+
+/*used in quota*/
+
+/*used in orders*/
+
+.orders-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.orders-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+}
+
+.orders-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.orders-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.orders-table form input[type="submit"] {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  background-color: #337ab7;
+  color: white;
+}
+
+.test{
+  border-style: dashed;
+}
+
+
+
+/*used in orders*/
+
+
+
+
+
+
+
+

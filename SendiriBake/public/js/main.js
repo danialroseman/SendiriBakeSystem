@@ -12,17 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
             overlayName.textContent = card.getAttribute('data-name');
             overlayDesc.textContent = card.getAttribute('data-desc');
             overlayPrice.textContent = 'Price: RM' + card.getAttribute('data-price');
-            overlay.style.display = 'flex'; // Show overlay
+            overlay.style.display = 'flex';
         });
     });
 
     closeBtn.addEventListener('click', function () {
-        overlay.style.display = 'none'; 
+        overlay.style.display = 'none';
     });
 
     window.addEventListener('click', function (event) {
         if (event.target === overlay) {
-            overlay.style.display = 'none'; 
+            overlay.style.display = 'none';
         }
     });
 });

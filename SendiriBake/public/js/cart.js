@@ -1,52 +1,113 @@
 document.addEventListener('DOMContentLoaded', function() {
     const emptyCartMessage = document.getElementById('empty-cart-message');
     const cartItemsContainer = document.getElementById('cart-items');
+    const cartSubtotal = document.getElementById('cart-subtotal');
+    const cart = {};
+
+    function updateCartDisplay() {
+        cartItemsContainer.innerHTML = '';
+        let subtotal = 0;
+
+        for (const [name, item] of Object.entries(cart)) {
+            const itemTotal = item.quantity * item.price;
+            subtotal += itemTotal;
+
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <div class="cart-item-info">
+                    <button class="quantity-decrease">-</button>
+                    <span class="cart-item-quantity">${item.quantity}</span>
+                    <button class="quantity-increase">+</button>
+                    <span class="cart-item-name">${name}</span>
+                </div>
+                <div class="cart-item-total">RM ${itemTotal} </div>
+                <span class="cart-item-remove" data-name="${name}"> &times;</span>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        }
+
+        cartSubtotal.textContent = `Subtotal: RM ${subtotal.toFixed(2)}`;
+        checkCartEmpty();
+    }
 
     function checkCartEmpty() {
-        const cartItems = document.querySelectorAll('.cart-item');
-        
-        // If no cart items, display "Your cart is empty" message
-        if (cartItems.length === 0) {
-            emptyCartMessage.style.display = 'block'; // Show the message
+        if (Object.keys(cart).length === 0) {
+            emptyCartMessage.style.display = 'block';
         } else {
-            emptyCartMessage.style.display = 'none'; // Hide the message
+            emptyCartMessage.style.display = 'none';
         }
     }
 
     function addProductToCart(name, price) {
-        // Extract price value from the string (remove 'Price: RM')
-        const actualPrice = price.replace('Price: RM', '').trim();
-        
-        // Create cart item element
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <p>${name} - RM${actualPrice}</p>
-            <span class="cart-item-remove">&times;</span>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-
-        // Remove item from cart when remove button is clicked
-        const removeButton = cartItem.querySelector('.cart-item-remove');
-        removeButton.addEventListener('click', function() {
-            cartItem.remove();
-            checkCartEmpty(); // Check if cart is empty after removing item
-        });
-
-        // Close the overlay
+        if (cart[name]) {
+            cart[name].quantity += 1;
+        } else {
+            cart[name] = {
+                price: parseFloat(price),
+                quantity: 1
+            };
+        }
+        updateCartDisplay();
         document.getElementById('overlay').style.display = 'none';
-
-        checkCartEmpty(); // Check if cart is empty after adding item
     }
 
-    // The product card 'Add to Cart' button is within the overlay now
-    const addToCartOverlayButton = document.getElementById('add-to-cart-overlay');
+    function removeCartItem(name) {
+        if (cart[name]) {
+            cart[name].quantity -= 1;
+            if (cart[name].quantity <= 0) {
+                delete cart[name];
+            }
+        }
+        updateCartDisplay();
+    }
 
+    function decreaseCartItemQuantity(name) {
+        if (cart[name] && cart[name].quantity > 0) {
+            cart[name].quantity -= 1;
+            if (cart[name].quantity === 0) {
+                delete cart[name];
+            }
+            updateCartDisplay();
+        }
+    }
+
+    function increaseCartItemQuantity(name) {
+        if (cart[name]) {
+            cart[name].quantity += 1;
+            updateCartDisplay();
+        }
+    }
+
+    document.querySelectorAll('.product-card').forEach(card => {
+        const addToCartButton = card.querySelector('#add-to-cart');
+        if (addToCartButton) {
+            addToCartButton.addEventListener('click', function() {
+                const productName = card.getAttribute('data-name');
+                const productPrice = card.getAttribute('data-price');
+                addProductToCart(productName, productPrice);
+            });
+        }
+    });
+
+    // Use event delegation to handle button clicks
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('quantity-decrease')) {
+            const itemName = event.target.parentElement.querySelector('.cart-item-name').textContent;
+            decreaseCartItemQuantity(itemName);
+        } else if (event.target.classList.contains('quantity-increase')) {
+            const itemName = event.target.parentElement.querySelector('.cart-item-name').textContent;
+            increaseCartItemQuantity(itemName);
+        } else if (event.target.classList.contains('cart-item-remove')) {
+            const itemName = event.target.getAttribute('data-name');
+            removeCartItem(itemName);
+        }
+    });
+
+    const addToCartOverlayButton = document.getElementById('add-to-cart-overlay');
     addToCartOverlayButton.addEventListener('click', function() {
         const overlayName = document.getElementById('overlay-name').innerText;
-        const overlayPrice = document.getElementById('overlay-price').innerText;
-
-        // Add product to cart
+        const overlayPrice = document.getElementById('overlay-price').innerText.replace('Price: RM', '').trim();
         addProductToCart(overlayName, overlayPrice);
     });
 });

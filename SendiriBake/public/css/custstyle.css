@@ -2,26 +2,63 @@
 
 .header {
     width: 100%;
+    height: 100px; 
     background-color: #f2f2f2;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
-    display: flex;
+    display: grid;
     padding: 10px 20px; 
+}
+
+.logo img{
+    width: 100px;
+    height: 100px;
+    align-self: center;
 }
 
 .header h1 {
     margin: 0; 
 }
 
-.cust-nav{
-    background-color:aqua;
+.menu{
+    width: 100%;
     position: fixed;
+    top: 60px;
     left: 0;
     right: 0;
     justify-content: center;
-    margin-top: 50px;
+    justify-self: center;
+}
+
+.menu ul {
+    list-style: none;
+    margin-right: 80px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: right;
+    
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu a{
+    text-decoration: none;
+    color: #333;
+}
+
+.cust-nav{
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    justify-self: center;
 
 }
 .cust-nav ul {
@@ -44,13 +81,16 @@
 }
 
 
-.main-container{
-    display: flex;
-}
+
 
 /*content area css*/
+.main-container{
+    display: flex;
+    margin-top: 50px;
+}
+
 .content-area{
-    flex-grow: 1; /* Allows content area to grow and take remaining space */
+    flex-grow: 1; 
     padding-top: 60px;
     
 }
@@ -58,6 +98,26 @@
 .content-area section h2{
     background-color: bisque;
 }
+
+
+
+
+/*product display*/
+
+.product-display{
+    flex-grow: 1; 
+    padding: 20px; 
+    margin-right: 300px;
+}
+
+
+.product-display section{
+    padding-top: 30px;
+}
+
+
+
+
 
 /* Cart */
 .cart {
@@ -102,6 +162,11 @@
 }
 
 
+
+
+
+
+
 /* Container for product cards */
 .main {
     display: flex;
@@ -142,6 +207,12 @@
     margin: 5px 0;
     color: #666;
 }
+
+
+
+
+
+
 
 /* product overlay*/
 

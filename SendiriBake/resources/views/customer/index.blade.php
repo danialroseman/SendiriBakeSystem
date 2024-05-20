@@ -6,8 +6,17 @@
 </head>
 <body>
     <div class="header">   
-        <h1>Sendiri Bake</h1>
-        
+        <div class="logo">
+            <img src="{{ asset('images/sendiribakelogo.png') }}" alt="Logo">
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#Orders">Orders</a></li>
+            </ul>
+        </div>
+
         <div class="cust-nav">
             <ul>
                 <li><a href="#creampuffs">Creampuff and Eclairs</a></li>
@@ -29,6 +38,7 @@
             </div>
         </div>
 
+        <div class="product-display">
         <section id="creampuffs"> 
             <h2>Creampuffs</h2>
             <div class="main" style="padding-top: 40px;">
@@ -84,6 +94,10 @@
                 @endforeach
             </div>
         </section>
+
+        </div>
+
+        
     </div>
 </div>
 
@@ -104,5 +118,7 @@
     <!-- JavaScript -->
     <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/scroll.js') }}"></script>
+
 </body>
 </html>

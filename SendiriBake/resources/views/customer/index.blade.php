@@ -8,6 +8,7 @@
     <div class="header">   
         <div class="logo">
             <img src="{{ asset('images/sendiribakelogo.png') }}" alt="Logo">
+            <h1>Sendiri Bake</h1>
         </div>
 
         <div class="menu">

@@ -14,11 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addProductToCart(name, price) {
+        // Extract price value from the string (remove 'Price: RM')
+        const actualPrice = price.replace('Price: RM', '').trim();
+        
         // Create cart item element
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
         cartItem.innerHTML = `
-            <p>${name} - ${price}</p>
+            <p>${name} - RM${actualPrice}</p>
             <span class="cart-item-remove">&times;</span>
         `;
         cartItemsContainer.appendChild(cartItem);
@@ -36,19 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
         checkCartEmpty(); // Check if cart is empty after adding item
     }
 
-    const addToCartButtons = document.querySelectorAll('.product-card #add-to-cart');
-    const addToCartOverlayButton = document.getElementById('add-to-cart-overlay'); // New button ID
-
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productCard = button.closest('.product-card');
-            const productName = productCard.getAttribute('data-name');
-            const productPrice = productCard.getAttribute('data-price');
-
-            // Add product to cart
-            addProductToCart(productName, productPrice);
-        });
-    });
+    // The product card 'Add to Cart' button is within the overlay now
+    const addToCartOverlayButton = document.getElementById('add-to-cart-overlay');
 
     addToCartOverlayButton.addEventListener('click', function() {
         const overlayName = document.getElementById('overlay-name').innerText;

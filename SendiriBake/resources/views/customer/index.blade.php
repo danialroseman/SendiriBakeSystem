@@ -48,7 +48,7 @@
                         <img src="data:image/jpeg;base64,{{ base64_encode($creampuff->Pimage) }}" alt="{{ $creampuff->Pname }}">
                         <h3>{{ $creampuff->Pname }}</h3>
                         <p>{{ $creampuff->Pdesc }}</p>
-                        <p>Price: ${{ $creampuff->price }}</p>
+                        <p>Price: RM{{ $creampuff->price }}</p>
                     </div>
                 @endforeach
             </div>
@@ -62,7 +62,7 @@
                         <img src="data:image/jpeg;base64,{{ base64_encode($cupcake->Pimage) }}" alt="{{ $cupcake->Pname }}">
                         <h3>{{ $cupcake->Pname }}</h3>
                         <p>{{ $cupcake->Pdesc }}</p>
-                        <p>Price: ${{ $cupcake->price }}</p>
+                        <p>Price: RM{{ $cupcake->price }}</p>
                     </div>
                 @endforeach
             </div>
@@ -76,7 +76,7 @@
                         <img src="data:image/jpeg;base64,{{ base64_encode($munchie->Pimage) }}" alt="{{ $munchie->Pname }}">
                         <h3>{{ $munchie->Pname }}</h3>
                         <p>{{ $munchie->Pdesc }}</p>
-                        <p>Price: ${{ $munchie->price }}</p>
+                        <p>Price: RM{{ $munchie->price }}</p>
                     </div>
                 @endforeach
             </div>
@@ -90,7 +90,7 @@
                         <img src="data:image/jpeg;base64,{{ base64_encode($cake->Pimage) }}" alt="{{ $cake->Pname }}">
                         <h3>{{ $cake->Pname }}</h3>
                         <p>{{ $cake->Pdesc }}</p>
-                        <p>Price: ${{ $cake->price }}</p>
+                        <p>Price: RM{{ $cake->price }}</p>
                     </div>
                 @endforeach
             </div>
@@ -112,7 +112,7 @@
             <h3 id="overlay-name"></h3>
             <p id="overlay-desc"></p>
             <p id="overlay-price"></p>
-            <button id="add-to-cart">Add to Cart</button>
+            <button id="add-to-cart-overlay">Add to Cart</button>
         </div>
     </div>
 

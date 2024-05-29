@@ -326,3 +326,31 @@
 
 
 
+/*used in checkout display*/
+
+.main-checkout {
+    padding: 50px;
+    font-family: verdana;
+}
+.cart-items {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+.cart-items th, .cart-items td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.cart-items th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+.cart-items tr:hover {
+    background-color: #f1f1f1;
+}
+.cart-total {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+

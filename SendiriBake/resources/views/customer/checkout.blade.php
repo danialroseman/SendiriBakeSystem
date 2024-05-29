@@ -18,30 +18,40 @@
             </ul>
         </div>
 
-        <div class="cust-nav">
-            <ul>
-                <li><a href="#creampuffs">Creampuff and Eclairs</a></li>
-                <li><a href="#cupcakes">Cupcakes</a></li>
-                <li><a href="#munchies">Munchies</a></li>
-                <li><a href="#cakes">Cakes</a></li>
-            </ul>
-        </div>
+        
     </div>
     
     <div class="main-checkout">   
-        <h1>Checkout</h1>
+        <h1>Order Summary</h1>
 
         @if (!empty($cart))
-            <h2>Cart Items</h2>
-            <ul>
-                @foreach ($cart as $itemName => $item)
-                    <li>{{ $itemName }} - Price: {{ $item['price'] }}</li>
-                    <!-- Include other item details as needed -->
-                @endforeach
-            </ul>
+            <h2>Order Summary</h2>
+            <table class="cart-items">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price (RM)</th>
+                        <th>Quantity</th>
+                        <th>Total (RM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cart as $itemName => $item)
+                        <tr>
+                            <td>{{ $itemName }}</td>
+                            <td>{{ $item['price'] }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <p class="cart-total">Grand Total: RM {{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, $cart)), 2) }}</p>
         @else
             <p>Your cart is empty.</p>
         @endif
+
+        <button id="proceed-btn">Proceed</button>
     </div>
     
     <script src="{{ asset('js/main.js') }}"></script>

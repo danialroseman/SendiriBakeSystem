@@ -3,6 +3,7 @@
 <head>
     <title>{{ $pageTitle ?? 'Sendiri Bake' }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custstyle.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <div class="header">   
@@ -38,7 +39,7 @@
                 </div>
                 <hr>
                 <p id="cart-subtotal">Subtotal: RM 0</p>
-                <button id="checkout" onclick="window.location.href='{{ route('checkout') }}'">Checkout</button>
+                <button id="checkout" onclick="window.location.href='{{ route('customer.checkout') }}'">Checkout</button>
             </div>
 
             <div class="product-display">

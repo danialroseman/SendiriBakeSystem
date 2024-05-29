@@ -1,12 +1,11 @@
 <?php
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CheckoutController; 
-
-
-
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -22,7 +21,10 @@ Route::post('/edit-quota', [QuotaController::class, 'update'])->name('quota.upda
 Route::get('/new-orders', [OrderController::class, 'newOrders'])->name('new.orders');
 Route::get('/active-orders', [OrderController::class, 'activeOrders'])->name('active.orders');
 
+Route::middleware(['web'])->group(function () {
+    Route::get('/customer', [CatalogueController::class, 'index']);
+    Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('customer.checkout');
 
-Route::get('/', [CatalogueController::class, 'index'])->name('home');
-Route::get('/customer', [CatalogueController::class, 'index']);
-Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('checkout');
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('/get-cart', [CartController::class, 'getCart'])->name('get-cart');
+});

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const emptyCartMessage = document.getElementById('empty-cart-message');
     const cartItemsContainer = document.getElementById('cart-items');
     const cartSubtotal = document.getElementById('cart-subtotal');
-    const cart = {};
+    let cart = {};
 
     function updateCartDisplay() {
         cartItemsContainer.innerHTML = '';
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="quantity-increase">+</button>
                     <span class="cart-item-name">${name}</span>
                 </div>
-                <div class="cart-item-total">RM ${itemTotal} </div>
-                <span class="cart-item-remove" data-name="${name}"> &times;</span>
+                <div class="cart-item-total">RM ${itemTotal.toFixed(2)}</div>
+                <span class="cart-item-remove" data-name="${name}">&times;</span>
             `;
             cartItemsContainer.appendChild(cartItem);
         }
@@ -39,29 +39,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Function to add product to cart
     function addProductToCart(name, price) {
-        if (cart[name]) {
-            cart[name].quantity += 1;
-        } else {
-            cart[name] = {
-                price: parseFloat(price),
-                quantity: 1
-            };
-        }
-        updateCartDisplay();
+        fetch('/add-to-cart', {
+            method: 'POST',
+            body: JSON.stringify({ name: name, price: price }),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                cart = data.cart;
+                updateCartDisplay();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
         document.getElementById('overlay').style.display = 'none';
     }
 
+    // Function to remove all instances of an item from cart
     function removeCartItem(name) {
         if (cart[name]) {
-            cart[name].quantity -= 1;
-            if (cart[name].quantity <= 0) {
-                delete cart[name];
-            }
+            delete cart[name];
+            updateCartDisplay();
         }
-        updateCartDisplay();
+
+        fetch('/remove-from-cart', {
+            method: 'POST',
+            body: JSON.stringify({ name: name }),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                cart = data.cart;
+                updateCartDisplay();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
+
+    // Function to decrease cart item quantity
     function decreaseCartItemQuantity(name) {
         if (cart[name] && cart[name].quantity > 0) {
             cart[name].quantity -= 1;
@@ -71,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCartDisplay();
         }
     }
+
 
     function increaseCartItemQuantity(name) {
         if (cart[name]) {
@@ -104,6 +135,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Fetch initial cart data from the server
+    fetch('/get-cart')
+        .then(response => response.json())
+        .then(data => {
+            cart = data.cart;
+            updateCartDisplay();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
     const addToCartOverlayButton = document.getElementById('add-to-cart-overlay');
     addToCartOverlayButton.addEventListener('click', function() {
         const overlayName = document.getElementById('overlay-name').innerText;
@@ -112,20 +154,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function redirectToCheckout() {
-        // Convert cart object to JSON string
         const cartJson = JSON.stringify(cart);
-        
-        // Encode cartJson to make it safe for URLs
         const encodedCartData = encodeURIComponent(cartJson);
-        
-        // Construct the checkout URL
         const checkoutUrl = '/checkout?cart=' + encodedCartData;
-        
-        // Redirect to the checkout page with cart data as query parameter
         window.location.href = checkoutUrl;
     }
-    
 
     const checkoutButton = document.getElementById('checkout');
     checkoutButton.addEventListener('click', redirectToCheckout);
-});    
+});

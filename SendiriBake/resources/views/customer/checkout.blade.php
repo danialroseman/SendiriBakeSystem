@@ -3,6 +3,8 @@
 <head>
     <title>{{ $pageTitle ?? 'Sendiri Bake' }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custstyle.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 <body>
     <div class="header">   

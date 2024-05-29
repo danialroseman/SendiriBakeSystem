@@ -13,7 +13,7 @@
 
         <div class="menu">
             <ul>
-                <li><a href="#Home">Home</a></li>
+                <li><button onclick="window.location.href='{{ route('home') }}'">Home</button></li>
                 <li><a href="#Orders">Orders</a></li>
             </ul>
         </div>
@@ -38,7 +38,7 @@
                 </div>
                 <hr>
                 <p id="cart-subtotal">Subtotal: RM 0</p>
-                <button id="checkout">Checkout</button>
+                <button id="checkout" onclick="window.location.href='{{ route('checkout') }}'">Checkout</button>
             </div>
 
             <div class="product-display">

@@ -110,4 +110,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlayPrice = document.getElementById('overlay-price').innerText.replace('Price: RM', '').trim();
         addProductToCart(overlayName, overlayPrice);
     });
-});
+
+    function redirectToCheckout() {
+        // Convert cart object to JSON string
+        const cartJson = JSON.stringify(cart);
+        
+        // Encode cartJson to make it safe for URLs
+        const encodedCartData = encodeURIComponent(cartJson);
+        
+        // Construct the checkout URL
+        const checkoutUrl = '/checkout?cart=' + encodedCartData;
+        
+        // Redirect to the checkout page with cart data as query parameter
+        window.location.href = checkoutUrl;
+    }
+    
+
+    const checkoutButton = document.getElementById('checkout');
+    checkoutButton.addEventListener('click', redirectToCheckout);
+});    

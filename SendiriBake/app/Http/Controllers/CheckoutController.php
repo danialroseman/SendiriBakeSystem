@@ -8,7 +8,7 @@ class CheckoutController extends Controller
 {
     public function showCheckout(Request $request)
     {
-        $cart = session('cart', []);
-        return view('customer.checkout', ['cart' => $cart]);
+        $cart = session()->get('cart', []);
+        return view('customer.checkout', compact('cart'));
     }
 }

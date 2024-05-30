@@ -77,7 +77,6 @@
 
     <!-- JavaScript -->
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/scroll.js') }}"></script>
 </body>
 </html>

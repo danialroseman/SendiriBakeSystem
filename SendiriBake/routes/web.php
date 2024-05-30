@@ -21,10 +21,15 @@ Route::post('/edit-quota', [QuotaController::class, 'update'])->name('quota.upda
 Route::get('/new-orders', [OrderController::class, 'newOrders'])->name('new.orders');
 Route::get('/active-orders', [OrderController::class, 'activeOrders'])->name('active.orders');
 
+// Customer routes
 Route::middleware(['web'])->group(function () {
-    Route::get('/customer', [CatalogueController::class, 'index']);
+    Route::get('/customer', [CatalogueController::class, 'index'])->name('customer.home');
     Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('customer.checkout');
 
-    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('/get-cart', [CartController::class, 'getCart'])->name('get-cart');
+    // Cart routes
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add.to.cart');
+    Route::get('/get-cart', [CartController::class, 'getCart'])->name('get.cart');
+    Route::post('/save-cart', [CartController::class, 'saveCart'])->name('save.cart');
+    Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
+
 });

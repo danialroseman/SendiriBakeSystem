@@ -24,36 +24,25 @@
     </div>
     
     <div class="main-checkout">   
-        <h1>Order Summary</h1>
-
-        @if (!empty($cart))
-            <h2>Order Summary</h2>
-            <table class="cart-items">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Price (RM)</th>
-                        <th>Quantity</th>
-                        <th>Total (RM)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($cart as $itemName => $item)
-                        <tr>
-                            <td>{{ $itemName }}</td>
-                            <td>{{ $item['price'] }}</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ number_format($item['price'] * $item['quantity'], 2) }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <p class="cart-total">Grand Total: RM {{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, $cart)), 2) }}</p>
-        @else
-            <p>Your cart is empty.</p>
-        @endif
-
-        <button id="proceed-btn">Proceed</button>
+    <h1>Checkout</h1>
+    @if(count($cart) > 0)
+        <div id="cart-items">
+            @foreach($cart as $name => $item)
+                <div class="cart-item">
+                    <span class="cart-item-name">{{ $name }}</span>
+                    <span class="cart-item-quantity">{{ $item['quantity'] }}</span>
+                    <span class="cart-item-price">RM {{ number_format($item['price'], 2) }}</span>
+                    <span class="cart-item-total">RM {{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                </div>
+            @endforeach
+        </div>
+        <div id="cart-subtotal">
+            Subtotal: RM {{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, $cart)), 2) }}
+        </div>
+        <button id="place-order">Place Order</button>
+    @else
+        <p>Your cart is empty.</p>
+    @endif
     </div>
     
     <script src="{{ asset('js/main.js') }}"></script>

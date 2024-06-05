@@ -8,6 +8,8 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
+        Log::info('Adding item to cart');//debugg
+
         $cart = session()->get('cart', []);
         $name = $request->input('name');
         $price = $request->input('price');
@@ -22,6 +24,8 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
+        Log::info('Cart after adding item:', ['cart' => $cart]);
+
 
         return response()->json(['success' => true, 'cart' => $cart]);
     }

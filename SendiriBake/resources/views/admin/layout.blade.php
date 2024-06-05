@@ -14,7 +14,7 @@
             <a href="{{ route('manage.quota') }}">Manage Order Quota</a>
             <a href="{{ route('new.orders') }}">New Orders</a>
             <a href="{{ route('active.orders') }}">Active Orders</a>
-            <a href="#">Reports</a>
+            <a href="{{ route('reports') }}">Reports</a>
         </div>
     </section>
 
@@ -27,5 +27,7 @@
         </div>
         
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 </html>

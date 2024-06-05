@@ -10,7 +10,7 @@
         <div class="productItem" onclick="redirectToEdit({{$product->Id}})">
             <img src="data:image/png;base64,{{ base64_encode($product->Pimage) }}" alt="{{ $product->Pname }}" onclick="redirectToEdit({{ $product->id }})">
             <p>{{ $product->Pname }}</p>
-            <p>Price: {{ $product->price }}</p>
+            <p>Price: RM {{ $product->price }}</p>
         </div>
     @endforeach
 </div>

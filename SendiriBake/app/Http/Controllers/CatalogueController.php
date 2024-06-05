@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class CatalogueController extends Controller
 {
-    public function index()//customer page
+    //customer page functions
+    public function index()
     {
         $creampuffs = Product::where('Category', 'Creampuffs')->get();
         $cupcakes = Product::where('Category', 'Cupcakes')->get();
@@ -85,6 +86,14 @@ class CatalogueController extends Controller
         $product->price = $request->input('productPrice');
         $product->Pdesc = $request->input('productDescription');
     
+        // Check if a new image has been uploaded
+        if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
+            // Get the binary image data
+            $imageData = file_get_contents($request->file('productImage')->getRealPath());
+            // Update the product image
+            $product->Pimage = $imageData;
+        }
+    
         try {
             $product->save();
             \Log::info('Product updated successfully!');
@@ -95,6 +104,7 @@ class CatalogueController extends Controller
     
         return redirect()->route('manage.catalogue')->with('success', 'Product updated successfully!');
     }
+    
 
     public function deleteProduct($id)
     {

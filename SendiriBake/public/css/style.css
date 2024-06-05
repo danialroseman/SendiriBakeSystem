@@ -76,7 +76,7 @@
 
 /*home*/
   
-/*used in managecat, editproduct*/
+/*used in managecat, */
   #productImages {
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
@@ -131,8 +131,69 @@
   font-family: Verdana;
   font-size: 15px;
 }
-/*used in managecat and editproduct*/
+/*used in managecat  */
 
+/*edit product*/
+.edit-product-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-product-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.edit-product-form label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.edit-product-form input[type="text"],
+.edit-product-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+#originalImage{
+  display: block;
+  margin: 0 auto;
+}
+
+#imagePreview {
+  display: block;
+  margin:0 auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+.edit-product-form input[type="text"],
+.edit-product-form textarea {
+  margin-bottom: 15px; /* Increase margin-bottom for better separation */
+}
+
+.edit-product-form button[type="submit"]:hover,
+.delete-form button[type="submit"]:hover {
+  background-color: #0056b3;
+  transition: background-color 0.3s ease;
+}
+
+
+/*edit product*/
 
 /*used in quota*/
 .edit-button-container {

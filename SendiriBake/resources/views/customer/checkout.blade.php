@@ -24,6 +24,7 @@
     </div>
     
     <div class="main-checkout">   
+
     <h1>Checkout</h1>
     @if(count($cart) > 0)
         <div id="cart-items">

@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custstyle.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-<body>
+<body id="index-page">
     <div class="header">   
         <div class="logo">
             <img src="{{ asset('images/sendiribakelogo.png') }}" alt="Logo">

@@ -26,14 +26,17 @@ Route::post('/complete-order', [OrderController::class, 'completeOrder'])->name(
 Route::get('/reports', [OrderController::class, 'reports'])->name('reports');
 
 // Customer routes
-Route::middleware(['web'])->group(function () {
+//Route::middleware(['web'])->group(function () {
     Route::get('/customer', [CatalogueController::class, 'index'])->name('customer.home');
     Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('customer.checkout');
 
     // Cart routes
-    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add.to.cart');
-    Route::get('/get-cart', [CartController::class, 'getCart'])->name('get.cart');
-    Route::post('/save-cart', [CartController::class, 'saveCart'])->name('save.cart');
-    Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');
+    Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/get-cart', [CartController::class, 'getCart'])->name('getCart');
+    Route::post('/save-cart', [CartController::class, 'saveCart'])->name('saveCart');
+    Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
-});
+    //Place Order routes
+    Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeorder');
+
+//});

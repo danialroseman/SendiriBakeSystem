@@ -1,16 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        Log::info('Adding item to cart');//debugg
-
-        $cart = session()->get('cart', []);
+        $cart = Session::get('cart', []);
         $name = $request->input('name');
         $price = $request->input('price');
 
@@ -23,37 +23,35 @@ class CartController extends Controller
             ];
         }
 
-        session()->put('cart', $cart);
-        Log::info('Cart after adding item:', ['cart' => $cart]);
-
+        Session::put('cart', $cart);
 
         return response()->json(['success' => true, 'cart' => $cart]);
     }
 
     public function removeFromCart(Request $request)
     {
-        $cart = session()->get('cart', []);
+        $cart = Session::get('cart', []);
         $name = $request->input('name');
 
         if (isset($cart[$name])) {
             unset($cart[$name]);
         }
 
-        session()->put('cart', $cart);
+        Session::put('cart', $cart);
 
         return response()->json(['success' => true, 'cart' => $cart]);
     }
 
     public function getCart()
     {
-        $cart = session()->get('cart', []);
+        $cart = Session::get('cart', []);
         return response()->json(['cart' => $cart]);
     }
 
     public function saveCart(Request $request)
     {
         $cart = $request->input('cart');
-        session()->put('cart', $cart);
+        Session::put('cart', $cart);
 
         return response()->json(['success' => true]);
     }

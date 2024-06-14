@@ -33,13 +33,17 @@
         <div class="content-area">
 
             <div class="cart">
-                <h2>Your Cart</h2>
+                <!-- Add Pickup Date Input -->
+                <label for="pickupDate">Pickup Date:</label>
+                <input type="date" id="pickupDate" name="pickupDate" required><br>
+
+                <h2 style="padding-top:10px">Your Cart</h2>
                 <div id="cart-items" class="cart-items">
                     <p id="empty-cart-message" class="empty-cart-message">Your cart is empty</p>
                 </div>
                 <hr>
                 <p id="cart-subtotal">Subtotal: RM 0</p>
-                <button id="checkout" onclick="window.location.href='{{ route('customer.checkout') }}'">Checkout</button>
+                <button id="checkout">Checkout</button>
             </div>
 
             <div class="product-display">
@@ -51,7 +55,7 @@
                                 <div class="product-card" data-name="{{ $product->Pname }}" data-desc="{{ $product->Pdesc }}" data-price="{{ $product->price }}" data-image="data:image/jpeg;base64,{{ base64_encode($product->Pimage) }}">
                                     <img src="data:image/jpeg;base64,{{ base64_encode($product->Pimage) }}" alt="{{ $product->Pname }}">
                                     <h3>{{ $product->Pname }}</h3>
-                                    <p>{{ $product->Pdesc }}</p>
+                                    <!--<p>{{ $product->Pdesc }}</p>-->
                                     <p>Price: RM{{ $product->price }}</p>
                                 </div>
                             @endforeach

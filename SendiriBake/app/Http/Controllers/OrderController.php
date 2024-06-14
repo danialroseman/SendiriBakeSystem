@@ -9,14 +9,12 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    // Method to display new orders with pending status
     public function newOrders()
     {
         $orders = Order::where('status', 'pending')->get();
         return view('admin.newOrders', compact('orders'));
     }
 
-    // Method to update the order status
     public function updateStatus(Request $request)
     {
         $orderId = $request->input('orderId');
@@ -40,7 +38,6 @@ class OrderController extends Controller
         return view('admin.activeOrders', compact('orders'));
     }
 
-    // Method to mark an order as completed
     public function completeOrder(Request $request)
     {
         $orderId = $request->input('orderId');
@@ -55,7 +52,6 @@ class OrderController extends Controller
         }
     }
 
-    // Method to display completed sales grouped by pickup dates
     public function reports()
     {
         $salesData = DB::table('prototype.placeorder')
@@ -73,6 +69,14 @@ class OrderController extends Controller
 
     public function placeOrder(Request $request)
     {
+        $validatedData = $request->validate([
+            'custName' => 'required|string|max:255',
+            'phoneNumber' => 'required|string|max:20',
+            'pickupDate' => 'required|date',
+            'paymentMethod' => 'required|string|in:COD,QrTransfer', 
+            'receipt-file' => 'nullable|file|mimes:pdf|max:2048' 
+        ]);
+
         $cart = Session::get('cart', []);
         if (empty($cart)) {
             return response()->json(['success' => false, 'message' => 'Cart is empty.']);
@@ -80,8 +84,22 @@ class OrderController extends Controller
 
         $custName = $request->input('custName');
         $phoneNumber = $request->input('phoneNumber');
-        \Log::info('Received customer name: ' . $custName);//debug
-        \Log::info('Received phone number: ' . $phoneNumber);
+        $pickupDate = $validatedData['pickupDate']; 
+        $paymentMethod = $request->input('paymentMethod');
+
+        $paymentMethod = $request->input('paymentMethod');
+
+        $receiptFilePath = null;
+        if ($paymentMethod === 'QrTransfer' && $request->hasFile('receipt-file')) {
+            $receiptFile = $request->file('receipt-file');
+            \Log::info('Receipt file detected: ' . $receiptFile->getClientOriginalName());
+            $receiptFilePath = $receiptFile->store('public/receipts');
+            \Log::info('Receipt file path: ' . $receiptFilePath);
+        } else {
+            \Log::error('Receipt file not uploaded or payment method is not QrTransfer.');
+        }
+
+
         $totalPrice = array_sum(array_map(function($item) {
             return $item['price'] * $item['quantity'];
         }, $cart));
@@ -91,10 +109,12 @@ class OrderController extends Controller
         $order = Order::create([
             'orderdetails' => $orderDetails,
             'totalprice' => $totalPrice,
-            //'pickup' => $custName . ' - ' . $phoneNumber,
-            'phoneNum'=>$phoneNumber,
-            'custName'=>$custName,
-            'status' => 'pending'
+            'phoneNum' => $phoneNumber,
+            'custName' => $custName,
+            'pickup' => $pickupDate,
+            'status' => 'pending',
+            'payment_method' => $paymentMethod,
+            'receipt' => $receiptFilePath
         ]);
 
         \Log::info('Order details:', [//debug
@@ -102,6 +122,9 @@ class OrderController extends Controller
             'totalPrice' => $totalPrice,
             'custName' => $custName,
             'phoneNumber' => $phoneNumber,
+            'pickupDate'=> $pickupDate,
+            'paymentMethod' => $paymentMethod,
+            'receiptFilePath' => $receiptFilePath
         ]);
         
 

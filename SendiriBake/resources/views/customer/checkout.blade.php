@@ -13,7 +13,7 @@
         </div>
         <div class="menu">
             <ul>
-                <li><button onclick="window.location.href='{{ route('home') }}'">Home</button></li>
+                <li><button onclick="window.location.href = '/customer'">Home</button></li>
                 <li><a href="#Orders">Orders</a></li>
             </ul>
         </div>
@@ -31,23 +31,47 @@
                     </div>
                 @endforeach
             </div>
+
             <div id="cart-subtotal">
                 Subtotal: RM {{ number_format(array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, $cart)), 2) }}
+            </div>
+
+            <div id="payment-method">
+                <h2>Select Payment Method:</h2>
+                <label>
+                    <input type="radio" name="paymentMethod" value="COD" checked> Cash On Delivery
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="QrTransfer"> QR Transfer
+                </label>
+            </div>
+            <div id="qr-code">
+                <img id="qr-code-image" src="{{ asset('images/qrpaycropped.jpeg') }}" alt="QR Code">
+            </div>
+            <div id="pdf-upload">
+                <h2>Upload PDF Receipt:</h2>
+                <input type="file" id="receipt-file" accept="application/pdf">
             </div>
             <button id="place-order">Place Order</button>
         @else
             <p>Your cart is empty.</p>
         @endif
     </div>
+
+    
+
+
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Register Your Order</h2>
-            <form id="orderForm">
+            <form id="orderForm" enctype="multipart/form-data">
                 <label for="custName">Customer Name:</label>
                 <input type="text" id="custName" name="custName" required><br>
                 <label for="phoneNumber">Phone Number:</label>
                 <input type="text" id="phoneNumber" name="phoneNumber" required><br>
+                <input type="file" id="order-receipt-file" accept="application/pdf" style="display:none;"> <!-- Hidden receipt upload for order modal -->
+                <input type="hidden" name="paymentMethod" id="paymentMethod">
                 <button type="submit">Submit Order</button>
             </form>
         </div>

@@ -45,12 +45,10 @@ class CatalogueController extends Controller
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Check if file upload is successful
+        // Checks
         if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
-            // Get the binary image data
             $imageData = file_get_contents($request->file('productImage')->getRealPath());
     
-            // Create a new product instance and save it
             $product = new Product();
             $product->Category = $request->input('Category');
             $product->Pname = $request->input('productName');
@@ -60,11 +58,9 @@ class CatalogueController extends Controller
             $product->save();
             
     
-            // Redirect back to the manageCat page after adding the product
             return redirect()->route('manage.catalogue')->with('success', 'Product added successfully!');
         }
     
-        // Handle file upload error
         return redirect()->back()->withInput()->withErrors(['productImage' => 'Failed to upload product image']);
     }
     
@@ -81,16 +77,12 @@ class CatalogueController extends Controller
     {
         $product = Product::findOrFail($Id);
     
-        // Update the product details
         $product->Pname = $request->input('productName');
         $product->price = $request->input('productPrice');
         $product->Pdesc = $request->input('productDescription');
     
-        // Check if a new image has been uploaded
         if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
-            // Get the binary image data
             $imageData = file_get_contents($request->file('productImage')->getRealPath());
-            // Update the product image
             $product->Pimage = $imageData;
         }
     

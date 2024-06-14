@@ -12,16 +12,33 @@
                     <th>Total Price</th>
                     <th>Pickup Date</th>
                     <th>Status</th>
+                    <th>Method</th>
+                    <th>Receipt</th>
                     <th>Action</th>
                 </tr>
 
                 @foreach ($orders as $order)
                     <tr>
                         <td>{{ $order->Id }}</td> <!-- Ensure this matches your column name -->
-                        <td>{{ $order->orderdetails }}</td>
-                        <td>{{ $order->totalprice }}</td>
+                        <td>
+                            @php
+                                $orderDetails = json_decode($order->orderdetails, true);
+                            @endphp
+                            @foreach ($orderDetails as $name => $item)
+                                {{ $name }}: x {{ $item['quantity'] }} (RM{{ number_format($item['price'], 2) }})<br>
+                            @endforeach                       
+                         </td>
+                        <td>RM{{ $order->totalprice }}</td>
                         <td>{{ $order->pickup }}</td>
                         <td>{{ $order->status }}</td>
+                        <td>{{ $order->payment_method }}</td>
+                        <td>
+                            @if ($order->receipt)
+                                <a href="{{ Storage::url($order->receipt) }}" target="_blank">View Receipt</a>
+                            @else
+                                N/A
+                            @endif
+                        </td>
                         <td>
                             <form method="post" action="{{ route('update.order.status') }}" class="update-status-form">
                                 @csrf

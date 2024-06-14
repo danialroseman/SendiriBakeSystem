@@ -8,7 +8,6 @@ class Order extends Model
 {
     protected $table = 'placeorder';
     protected $primaryKey = 'Id'; 
-    protected $fillable = ['orderdetails', 'totalprice', 'pickup', 'status'];
+    protected $fillable = ['orderdetails', 'totalprice', 'pickup', 'status','phoneNum', 'custName', 'receipt', 'payment_method' ]; // Include 'receipt' here
     public $timestamps=false;
-
 }

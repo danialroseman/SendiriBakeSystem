@@ -131,12 +131,10 @@ class OrderController extends Controller
         if ($order) {
             Session::forget('cart');
             \Log::info('Order placed successfully.');
-
             return response()->json(['success' => true]);
             
         } else {
             \Log::error('Failed to place order.');//debug
-
             return response()->json(['success' => false, 'message' => 'Failed to place order.']);
         }
     }

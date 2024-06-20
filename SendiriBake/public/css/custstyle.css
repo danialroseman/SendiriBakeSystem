@@ -38,12 +38,12 @@
     display: flex;
     position: fixed;
     width: 100%;
-    top: 60px;
+    top: 50px;
     left: 0;
     right: 0;
     justify-content: flex-end;
     justify-self: center;
-    z-index: 1000; 
+    /*z-index: 1000; */
 }
 .menu ul {
     list-style: none;

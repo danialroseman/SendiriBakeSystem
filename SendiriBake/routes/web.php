@@ -7,8 +7,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CartController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
+Route::get('/', [CatalogueController::class, 'index'])->name('customer.home');
+Route::get('/admin', [HomeController::class, 'index'])->name('home');
 Route::get('/manage-cat', [CatalogueController::class, 'manageCat'])->name('manage.catalogue');
 Route::get('/add-product', [CatalogueController::class, 'addProduct'])->name('add.product');//for rendering page
 Route::post('/add-product', [CatalogueController::class, 'storeProduct'])->name('product.store');//for form submission

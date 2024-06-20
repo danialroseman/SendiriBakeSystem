@@ -11,11 +11,10 @@
             <img src="{{ asset('images/sendiribakelogo.png') }}" alt="Logo">
             <h1>Sendiri Bake</h1>
         </div>
-
         <div class="menu">
             <ul>
-                <li><button onclick="window.location.href='{{ route('home') }}'">Home</button></li>
-                <li><a href="#Orders">Orders</a></li>
+                <li><button onclick="window.location.href='{{ route('customer.home') }}'">Home</button></li>
+                <li><button onclick="window.location.href='{{ route('customer.order') }}'">Order</button></li>
             </ul>
         </div>
 

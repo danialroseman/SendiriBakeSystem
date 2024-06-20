@@ -14,7 +14,7 @@
         <div class="menu">
             <ul>
                 <li><button onclick="window.location.href = '/customer'">Home</button></li>
-                <li><a href="#Orders">Orders</a></li>
+                <li><button onclick="window.location.href='{{ route('customer.order') }}'">Order</button></li>
             </ul>
         </div>
     </div>

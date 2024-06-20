@@ -6,6 +6,8 @@ use App\Http\Controllers\QuotaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\TrackOrderController;
+
 
 Route::get('/', [CatalogueController::class, 'index'])->name('customer.home');
 Route::get('/admin', [HomeController::class, 'index'])->name('home');
@@ -29,6 +31,10 @@ Route::get('/reports', [OrderController::class, 'reports'])->name('reports');
 //Route::middleware(['web'])->group(function () {
     Route::get('/customer', [CatalogueController::class, 'index'])->name('customer.home');
     Route::get('/checkout', [CheckoutController::class, 'showCheckout'])->name('customer.checkout');
+    Route::get('/order', [TrackOrderController::class, 'showOrder'])->name('customer.order');
+
+    //Track Order routes
+    Route::post('/track-order', [TrackOrderController::class, 'trackOrder'])->name('customer.trackOrder');
 
     // Cart routes
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('addToCart');
@@ -36,7 +42,7 @@ Route::get('/reports', [OrderController::class, 'reports'])->name('reports');
     Route::post('/save-cart', [CartController::class, 'saveCart'])->name('saveCart');
     Route::post('/remove-from-cart', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
-    //Place Order routes
+    // Place Order routes
     Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeorder');
 
 //});

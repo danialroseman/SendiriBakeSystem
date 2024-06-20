@@ -7,7 +7,9 @@
         @if ($orders->isNotEmpty())
             <table class="orders-table">
                 <tr>
-                    <th>Order ID</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Contact</th>
                     <th>Order Details</th>
                     <th>Total Price</th>
                     <th>Pickup Date</th>
@@ -20,6 +22,8 @@
                 @foreach ($orders as $order)
                     <tr>
                         <td>{{ $order->Id }}</td> <!-- Ensure this matches your column name -->
+                        <td>{{ $order->custName}}</td>
+                        <td>{{ $order->phoneNum}}</td>
                         <td>
                             @php
                                 $orderDetails = json_decode($order->orderdetails, true);

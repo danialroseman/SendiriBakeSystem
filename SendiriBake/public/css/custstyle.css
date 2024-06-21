@@ -43,7 +43,6 @@
     right: 0;
     justify-content: flex-end;
     justify-self: center;
-    /*z-index: 1000; */
 }
 .menu ul {
     list-style: none;
@@ -98,6 +97,9 @@
     color: #333;
     font-weight: bold;
 }
+.cust-nav li:hover {
+    transform: scale(1.05);
+}
 
 /*content area css*/
 .main-container{
@@ -115,7 +117,6 @@
     margin: 50px auto;
     background-color: #fff;
     padding-top: 130px;
-    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
     border-radius: 8px;
 }
 
@@ -191,7 +192,7 @@
 /* Cart */
 .cart {
     width: 300px; /* Adjust width as needed */
-    height: 500px;
+    height: 100%;
     max-height: calc(100vh - 60px); /* Adjust height as needed */
     overflow-y: auto;
     background-color: #fff;

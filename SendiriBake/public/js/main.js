@@ -164,17 +164,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
         
         const checkoutButton = document.getElementById('checkout');
-        if(checkoutButton){
-            checkoutButton.addEventListener('click', function() {
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', function(event) {
                 const pickupDate = document.getElementById('pickupDate').value;
+
                 if (!pickupDate) {
                     alert('Please select a pickup date.');
                     event.preventDefault(); // Prevent the form from being submitted
-                }else{
-                    window.location.href = '/checkout';
+                } else {
+                    // Check the order quota for the selected date
+                    fetch('/check-pickup-date', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ pickupDate: pickupDate })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'error') {
+                            alert(data.message);
+                        } else {
+                            // Proceed to the checkout page
+                            window.location.href = '/checkout';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.'+ error);
+                    });
+
+                    event.preventDefault(); // Prevent the default form submission behavior
                 }
             });
         }
+
         
 
         function saveCart() { // AJAX for saving the session cart

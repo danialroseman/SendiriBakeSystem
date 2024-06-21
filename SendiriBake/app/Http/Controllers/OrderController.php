@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Order;
+use App\Models\Quota;
 
 class OrderController extends Controller
 {
@@ -54,17 +55,42 @@ class OrderController extends Controller
 
     public function reports()
     {
-        $salesData = DB::table('prototype.placeorder')
-            ->select(DB::raw('DATE(pickup) as pickup_date'), DB::raw('COUNT(*) as total_sales'))
+        // Fetch sales data using Eloquent
+        $salesData = Order::selectRaw('DATE(pickup) as pickup_date, COUNT(*) as total_sales')
             ->where('status', 'completed')
             ->groupBy('pickup_date')
             ->orderBy('pickup_date')
             ->get();
 
+        // Extract dates and sales from the salesData collection
         $dates = $salesData->pluck('pickup_date')->toArray();
         $sales = $salesData->pluck('total_sales')->toArray();
 
         return view('admin.reports', compact('dates', 'sales'));
+    }
+
+    public function checkPickupDate(Request $request)
+    {
+        try{
+            $pickupDate = $request->input('pickupDate');
+
+            // Get the custom quota for the given pickup date
+            $quotaRecord = Quota::whereDate('date', $pickupDate)->first();
+            $orderLimit = $quotaRecord ? $quotaRecord->quota : 5;
+
+            // Count the orders for the given pickup date
+            $orderCount = Order::whereDate('pickup', $pickupDate)->count();
+
+            if ($orderCount >= $orderLimit) {
+                return response()->json(['status' => 'error', 'message' => 'Order quota reached for the selected date.'], 400);
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'You can place an order for this date.']);
+        }catch(Exception $e){
+            alert($e);
+        }
+
+        
     }
 
     public function placeOrder(Request $request)

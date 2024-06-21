@@ -11,7 +11,7 @@
             <h1>Sendiri Bake</h1>
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('manage.catalogue') }}">Manage Catalogue</a>
-            <a href="{{ route('manage.quota') }}">Manage Order Quota</a>
+            <a href="{{ route('edit.quota') }}">Manage Order Quota</a>
             <a href="{{ route('new.orders') }}">New Orders</a>
             <a href="{{ route('active.orders') }}">Active Orders</a>
             <a href="{{ route('reports') }}">Reports</a>

@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quota extends Model
 {
     use HasFactory;
+    protected $fillable = ['date', 'quota'];
     protected $table = 'quota';
+    public $timestamps=false;
 }

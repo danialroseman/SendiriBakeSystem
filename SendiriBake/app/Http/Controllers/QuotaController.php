@@ -26,29 +26,43 @@ class QuotaController extends Controller
 
         return view('admin.manageQuota', compact('labels', 'availableQuotas', 'filledQuotas', 'customQuotas'));
     }
-
+    
+    
     public function update(Request $request)
     {
         $request->validate([
             'start' => 'required|date',
-            'quota' => 'required|integer|min:1'
+            'quota' => 'required|integer|min:1',
         ]);
-
+    
         $date = $request->input('start');
         $quota = $request->input('quota');
-
-        // Find or create a quota record for the specified date
-        $quotaRecord = Quota::updateOrCreate(
-            ['date' => $date],
-            ['quota' => $quota]
-        );
-
+      
+        // Find the quota record by 'date'
+        $quotaRecord = Quota::find($date);
+            
+        if ($quotaRecord) {
+            // Update the quota if record exists
+            $quotaRecord->quota = $quota;
+            $quotaRecord->save();
+        } else {
+            // Create a new quota record if not found
+            Quota::create([
+                'date' => $date,
+                'quota' => $quota,
+            ]);
+        }
+    
         return redirect()->back()->with('status', 'Order quota updated successfully!');
     }
-
+    
+    
     public function editQuota()
     {
-        return view('admin.editQuota');
+        $quotas = Quota::all();
+        return view('admin.editQuota', compact('quotas'));
     }
+    
+    
 
 }

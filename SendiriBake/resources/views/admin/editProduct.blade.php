@@ -10,7 +10,7 @@
         <!-- Display original product image if it exists -->
         <div>
             @if ($product->Pimage)
-                <img id="originalImage" src="data:image/png;base64,{{ base64_encode($product->Pimage) }}" alt="Product Image" style= "width: 250px; height: 250px">
+                <img id="originalImage" src="{{ asset($product->Pimage) }}" alt="Product Image" style="width: 250px; height: 250px;">
             @else
                 <p>No original image available</p>
             @endif
@@ -23,7 +23,6 @@
             <!-- Image preview container -->
             <img id="imagePreview" src="#" alt="Product Image Preview" style="display: none; max-width: 200px;">
         </div>
-
 
         <!-- Other form fields for product details -->
         <div>

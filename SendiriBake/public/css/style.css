@@ -196,53 +196,55 @@
 /*edit product*/
 
 /*used in quota*/
-.edit-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 20px; /* You can adjust the padding as needed */
+/* CSS for table layout */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.edit-button {
-  padding: 10px 20px;
-  text-decoration: none;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-.edit-button:hover {
-  background-color: #0056b3;
+table th {
+  background-color: #f2f2f2;
 }
 
+/* CSS for form layout */
 .editquota {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  margin: auto; /* To center the form horizontally within the main container */
+  margin-top: 20px;
 }
 
-/* Apply styles to the form elements */
+.editquota .date-input {
+  margin-bottom: 10px;
+}
+
 .editquota label {
-  margin-bottom: 8px; /* Adjust spacing between labels and inputs */
-}
-
-.editquota input {
-  padding: 6px; /* Add padding for inputs */
-  margin-bottom: 12px; /* Adjust spacing between inputs */
-}
-
-.date-input {
-  margin-right: 20px; /* Adjust spacing between date inputs */
-  display: flex;
-  justify-content: center;
-}
-
-.date-input label,.date-input input {
   display: block;
+  margin-bottom: 5px;
+}
+
+.editquota input[type="date"],
+.editquota input[type="number"] {
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.editquota button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.editquota button[type="submit"]:hover {
+  background-color: #45a049;
 }
 
 /*used in quota*/

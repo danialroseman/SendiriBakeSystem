@@ -36,33 +36,67 @@ class CatalogueController extends Controller
 
     public function storeProduct(Request $request)
     {
-        // Validate the incoming request data
+        // Validate the request data
         $request->validate([
-            'Category'=>'required|string|max:255',
+            'Category' => 'required|string|max:255',
             'productName' => 'required|string|max:255',
             'productPrice' => 'required|numeric',
             'productDescription' => 'nullable|string',
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Checks
-        if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
-            $imageData = file_get_contents($request->file('productImage')->getRealPath());
+        try {
+            if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
+                // Get the image file
+                $imageFile = $request->file('productImage');
+        
+                // Check if $imageFile is an instance of UploadedFile
+                if (!$imageFile instanceof \Illuminate\Http\UploadedFile) {
+                    throw new \Exception("Uploaded file is not valid.");
+                }
+        
+                // Log image details correctly
+                \Log::info('Image details:', [
+                    'original_name' => $imageFile->getClientOriginalName(),
+                    'mime_type' => $imageFile->getClientMimeType(),
+                    'size' => $imageFile->getSize(),
+                ]);
     
-            $product = new Product();
-            $product->Category = $request->input('Category');
-            $product->Pname = $request->input('productName');
-            $product->price = $request->input('productPrice');
-            $product->Pdesc = $request->input('productDescription');
-            $product->Pimage = $imageData;
-            $product->save();
-            
+                // Store the image locally
+                $imagePath = $imageFile->store('public/images'); // Store the image in the 'public/images' directory
     
-            return redirect()->route('manage.catalogue')->with('success', 'Product added successfully!');
+                // Get the URL to the stored image
+                $imageURL = \Storage::url($imagePath);
+    
+                // Create a new product instance
+                $product = new Product();
+                $product->Category = $request->input('Category');
+                $product->Pname = $request->input('productName');
+                $product->price = $request->input('productPrice');
+                $product->Pdesc = $request->input('productDescription');
+                $product->Pimage = $imageURL; // Store the URL to the image in the database
+    
+                // Save the product to the database
+                $product->save();
+    
+                // Redirect with a success message
+                return redirect()->route('manage.catalogue')->with('success', 'Product added successfully!');
+            } else {
+                // Redirect back with an error message if the image upload failed
+                return redirect()->back()->withInput()->withErrors(['productImage' => 'Failed to upload product image']);
+            }
+        } catch (\Exception $e) {
+            // Log the error message
+            \Log::error('Error storing product:', ['exception' => $e->getMessage()]);
+    
+            // Redirect back with the error message if there's an exception
+            return redirect()->back()->withInput()->withErrors(['database' => $e->getMessage()]);
         }
-    
-        return redirect()->back()->withInput()->withErrors(['productImage' => 'Failed to upload product image']);
     }
+    
+    
+    
+
     
 
     public function editProduct($Id)
@@ -81,9 +115,16 @@ class CatalogueController extends Controller
         $product->price = $request->input('productPrice');
         $product->Pdesc = $request->input('productDescription');
     
+        // Handle image update
         if ($request->hasFile('productImage') && $request->file('productImage')->isValid()) {
-            $imageData = file_get_contents($request->file('productImage')->getRealPath());
-            $product->Pimage = $imageData;
+            // Delete the old image if necessary (optional step)
+            // Storage::delete($product->Pimage); // Uncomment this line if you want to delete the old image
+    
+            // Store the new image
+            $imagePath = $request->file('productImage')->store('public/images');
+            $imageURL = \Storage::url($imagePath);
+    
+            $product->Pimage = $imageURL;
         }
     
         try {
@@ -91,11 +132,12 @@ class CatalogueController extends Controller
             \Log::info('Product updated successfully!');
         } catch (\Exception $e) {
             \Log::error('Product update failed: ' . $e->getMessage());
-            dd($e->getMessage());
+            // Handle exception as needed
         }
     
         return redirect()->route('manage.catalogue')->with('success', 'Product updated successfully!');
     }
+    
     
 
     public function deleteProduct($id)

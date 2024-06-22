@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('quota', function (Blueprint $table) {
-            $table->date('date')->useCurrent()->primary();
+            $table->date('date')->primary();
             $table->integer('quota');
             $table->integer('available');
             $table->integer('filled');

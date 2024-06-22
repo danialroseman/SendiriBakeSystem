@@ -7,8 +7,8 @@
 </div>
 <div id="productImages">
     @foreach ($products as $product)
-        <div class="productItem" onclick="redirectToEdit({{$product->Id}})">
-            <img src="data:image/png;base64,{{ base64_encode($product->Pimage) }}" alt="{{ $product->Pname }}" onclick="redirectToEdit({{ $product->id }})">
+        <div class="productItem" onclick="redirectToEdit({{ $product->Id }})">
+            <img src="{{ asset($product->Pimage) }}" alt="{{ $product->Pname }}">
             <p>{{ $product->Pname }}</p>
             <p>Price: RM {{ $product->price }}</p>
         </div>
@@ -16,8 +16,9 @@
 </div>
 
 <script>
-    function redirectToEdit(productId) {
-        window.location.href = `/edit-product/${productId}`;
+    function redirectToEdit(Id) {
+        window.location.href = `/edit-product/${Id}`;
+        console.log(Id)
     }
 </script>
 @endsection

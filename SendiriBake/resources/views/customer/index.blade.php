@@ -51,8 +51,8 @@
                         <h2>{{ ucfirst($category) }}</h2>
                         <div class="main" style="padding-top: 40px;">
                             @foreach($$category as $product)
-                                <div class="product-card" data-name="{{ $product->Pname }}" data-desc="{{ $product->Pdesc }}" data-price="{{ $product->price }}" data-image="data:image/jpeg;base64,{{ base64_encode($product->Pimage) }}">
-                                    <img src="data:image/jpeg;base64,{{ base64_encode($product->Pimage) }}" alt="{{ $product->Pname }}">
+                                <div class="product-card" data-name="{{ $product->Pname }}" data-desc="{{ $product->Pdesc }}" data-price="{{ $product->price }}" data-image="{{ asset($product->Pimage) }}">
+                                    <img src="{{ asset($product->Pimage) }}" alt="{{ $product->Pname }}">
                                     <h3>{{ $product->Pname }}</h3>
                                     <!--<p>{{ $product->Pdesc }}</p>-->
                                     <p>Price: RM{{ $product->price }}</p>

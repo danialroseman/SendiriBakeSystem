@@ -3,6 +3,7 @@
 <head>
     <title>{{ $pageTitle ?? 'Sendiri Bake' }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/sendiribakelogo.png') }}">
 </head>
 <body>
     <!-- Sidebar -->

@@ -1,20 +1,24 @@
 /*customer*/
 
 .body{
-    background-color: #fae2ed;
+    background-color: #BFA6A2;
 }
 .header {
     width: 100%;
     height: 100px; 
-    background-color: #E4A49A;
+    background-color: #A07A95;
+    color: #FFE5DC;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    align-items: center; /* Center content vertically */
     display: flex;
     padding: 10px 20px; 
-    font-family: trebuchet ms;
+    font-family: "Playwrite NG Modern", cursive;
     font-weight: normal;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Horizontal offset, Vertical offset, Blur radius, Color */
+
 }
 .logo{
     display: flex;
@@ -29,7 +33,7 @@
     display: flex;
     padding-left: 20px;
     align-self: center;
-    font-family: trebuchet ms;
+    font-family: "Playwrite NG Modern", cursive;
 }
 .header h1 {
     margin: 0; 
@@ -43,6 +47,9 @@
     right: 0;
     justify-content: flex-end;
     justify-self: center;
+    font-family: "Playwrite NG Modern", cursive;
+    z-index: 999;
+
 }
 .menu ul {
     list-style: none;
@@ -61,16 +68,18 @@
     color: #333;
 }
 .menu button {
-    background-color: #f8b400; /*tukar color?*/
-    color: #fff;
+    background-color: #FFE5DC;
+    color: #57423F;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
+    font-family: "ZCOOL XiaoWei", sans-serif;
+
 }
 .menu button:hover {
-    background-color: #e09e00;  /*tukar color?*/
+    background-color: #BFA6A2;  
 }
 .cust-nav{
     width: 100%;
@@ -94,11 +103,16 @@
 }
 .cust-nav a {
     text-decoration: none;
-    color: #333;
+    color: #FFE5DC;
     font-weight: bold;
+}
+
+.cust-nav a:hover{
+    color: #4F5A73;
 }
 .cust-nav li:hover {
     transform: scale(1.05);
+    color: #4F5A73;
 }
 
 /*content area css*/
@@ -176,7 +190,8 @@
     flex-grow: 1; 
     padding: 20px; 
     margin-right: 300px;
-    font-family: trebuchet ms;
+    font-family: "ZCOOL XiaoWei", sans-serif;
+    font-weight: bold;
 }
 .product-display section{
     padding-top: 30px;
@@ -195,14 +210,15 @@
     height: 100%;
     max-height: calc(100vh - 60px); /* Adjust height as needed */
     overflow-y: auto;
-    background-color: #fff;
+    background-color: #F7EEED;
     border: 1px solid #ddd;
     padding: 10px;
     position: fixed;
     top: 150px; /* Adjust top position as needed */
     right: 0;
     z-index: 1000; /* Ensure the cart is above other content */
-    font-family: trebuchet ms;
+    font-family: "ZCOOL XiaoWei", sans-serif;
+    
 
 }
 .cart h2 {
@@ -242,7 +258,7 @@
     border-radius: 100%;   
 }
 .cart button{
-    font-family: verdana;
+    font-family: 'Montserrat', sans-serif;
     background-color: #cdc8cb;
     border: none;
 }
@@ -295,7 +311,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    font-family: Verdana;
+    font-family: 'Montserrat', sans-serif;
 }
 .overlay-content {
     background-color: white;
@@ -322,7 +338,7 @@
     color: #333;
 }
 #add-to-cart-overlay{
-    font-family: verdana;
+    font-family: 'Montserrat', sans-serif;
     background-color: #cdc8cb;
     border: none;
 }
@@ -331,7 +347,7 @@
 .main-checkout {
     padding-top: 125px;
     padding-left: 20px;
-    font-family: verdana;
+    font-family: 'Montserrat', sans-serif;
 }
 .cart-items {
     margin-top: 20px;
@@ -359,6 +375,7 @@
 }
 #place-order {
     padding-top: 10px;
+    background-color: #A8B7A2;
 }
 #payment-method {
     padding-bottom: 15px;
@@ -418,6 +435,8 @@
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7); 
     padding-top: 60px;
+    font-family: "ZCOOL XiaoWei", sans-serif;
+
 }
 .modal-content {
     background-color: #fff;
@@ -481,7 +500,7 @@
     transition: background-color 0.3s ease;
 }
 .modal form button:hover {
-    background-color: #45a049;
+    background-color: #A8B7A2;
 }
 .modal form button:active {
     background-color: #3e8e41;

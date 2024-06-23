@@ -3,6 +3,10 @@
 <head>
     <title>{{ $pageTitle ?? 'Sendiri Bake' }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custstyle.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/sendiribakelogo.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+NG+Modern:wght@100..400&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body id="index-page">

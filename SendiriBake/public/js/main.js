@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!pickupDate) {
                     alert('Please select a pickup date.');
-                    event.preventDefault(); // Prevent the form from being submitted
+                    event.preventDefault(); 
                 } else {
                     // Check the order quota for the selected date
                     fetch('/check-pickup-date', {
@@ -275,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (receiptFileString) {
                 const receiptFile = JSON.parse(receiptFileString);
                 console.log('Receipt file:', receiptFile);
-                // Now you can use the receiptFile object as needed
             }
         });
             

@@ -36,7 +36,6 @@
         <div class="content-area">
 
             <div class="cart">
-                <!-- Add Pickup Date Input -->
                 <label for="pickupDate">Pickup Date:</label>
                 <input type="date" id="pickupDate" name="pickupDate" required><br>
 

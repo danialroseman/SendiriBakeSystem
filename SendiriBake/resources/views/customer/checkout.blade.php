@@ -27,12 +27,26 @@
         @if(count($cart) > 0)
             <div id="cart-items">
                 @foreach($cart as $name => $item)
-                    <div class="cart-item">
-                        <span class="cart-item-name">{{ $name }}</span>
-                        <span class="cart-item-quantity">{{ $item['quantity'] }}</span>
-                        <span class="cart-item-price">RM {{ number_format($item['price'], 2) }}</span>
-                        <span class="cart-item-total">RM {{ number_format($item['price'] * $item['quantity'], 2) }}</span>
-                    </div>
+                <table class="cart-items">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($cart as $name => $item)
+                            <tr>
+                                <td>{{ $name }}</td>
+                                <td>{{ $item['quantity'] }}</td>
+                                <td>RM {{ number_format($item['price'], 2) }}</td>
+                                <td>RM {{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 @endforeach
             </div>
 
@@ -74,7 +88,7 @@
                 <input type="text" id="custName" name="custName" required><br>
                 <label for="phoneNumber">Phone Number:</label>
                 <input type="text" id="phoneNumber" name="phoneNumber" required><br>
-                <input type="file" id="order-receipt-file" accept="application/pdf" style="display:none;"> <!-- Hidden receipt upload for order modal -->
+                <input type="file" id="order-receipt-file" accept="application/pdf" style="display:none;"> 
                 <input type="hidden" name="paymentMethod" id="paymentMethod">
                 <button type="submit">Submit Order</button>
             </form>

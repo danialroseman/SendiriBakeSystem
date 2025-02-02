@@ -12,8 +12,6 @@ class Quota extends Model
     protected $fillable = ['date', 'quota'];
     protected $table = 'quota';
     public $timestamps=false;
-    protected $casts = [
-        'date' => 'date', // Assuming 'date' is of type DATE in your database
-    ];
+    protected $casts = ['date' => 'date', ];
     
 }
